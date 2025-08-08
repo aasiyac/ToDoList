@@ -32,16 +32,22 @@ struct ContentView: View {
             Spacer()
             List {
                 ForEach(toDos) { toDoItem in
-                    Text(toDoItem.title)
+                    if toDoItem.isImportant {
+                        Text("‼️" + toDoItem.title)
+                    } else {
+                        Text(toDoItem.title)
+                    }
                 }
             }
         }//end vstack
         if showNewTask {
-            NewToDoView()
+            NewToDoView(toDoItem: ToDoItem(title: "", isImportant: false))
         }
     }//end body
 }//end struct
 
 #Preview {
     ContentView()
+        .modelContainer(for: ToDoItem.self, inMemory: true)
+
 }
